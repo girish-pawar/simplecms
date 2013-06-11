@@ -1,0 +1,12 @@
+<div class="content">
+   <div class="container-fluid">
+            <div class="row-fluid">
+<div class="block span12">
+
+<label>Path to Folder</label>
+<input type="text" name="folderpath"  class="smallInput"/>
+<label>Width of Slideshow</label>
+<input type="text" name="width"  class="smallInput" />
+<label>Height of Slideshow</label>
+<input type="text" name="height"  class="smallInput" />
+</div></div></div></div>

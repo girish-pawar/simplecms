@@ -1,0 +1,14 @@
+<div class="content">
+   <div class="container-fluid">
+            <div class="row-fluid">
+<div class="block span12">
+
+<select name="menuid"> 
+<?php
+$menus = $db->get_results("SELECT * FROM menu_table");
+foreach($menus as $menu){ ?>
+<option value="<?php echo $menu->m_id;?>"><?php echo $menu->title; ?></option>
+<?php }
+?>
+</select>
+</div></div></div></div>

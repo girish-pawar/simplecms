@@ -1,0 +1,138 @@
+<?php
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+session_start();
+?>
+<?php
+if(!isset($_SESSION['ad_id']))
+{
+header('location:admin_login.php');
+}
+else
+{
+$ad_id= $_SESSION['ad_id'];
+//print_r($_SESSION);
+?>
+
+<?php
+include_once('../admin/includes/conn.php');
+include_once('../admin/includes/function.php');
+include_once('../admin/includes/defination.php');
+
+if(isset($_GET['select']))
+{
+$select = $_GET['select'];
+echo 'Select'.$select.' options:';
+}
+
+if(isset($_GET['asd']))
+{
+$select1 = $_GET['asd'];
+}
+
+
+if(isset($_GET['select']))
+{
+
+global $db;
+$kind = $select;
+//echo 'kind is:'.$kind;
+$row = $db->get_row("SELECT * FROM component WHERE comp_t = '$kind' ");
+if($row)
+{ 
+//echo rootfolder;
+//$homepage = file_get_contents(site_root.'admin/component/'.$row->comp_foldername.'/config/menu_config.php');
+//echo $homepage;
+include_once('../admin/component/'.$row->comp_foldername.'/config/menu_config.php');
+}
+
+
+echo '<select name=link  id=searchtext1 onblur=suggest1();>';
+//echo '<select name="link"  onclick= "suggest1($select);">';
+foreach($options as $option)
+{
+//	echo $selectoption;
+	echo '<option value="'.$option.'">'.$option.'</option><br />';	
+}
+echo '</select>';
+
+
+}else{
+	
+$select1 = $_GET['asd'];
+$opt = $_GET['opt'];
+
+if($opt)
+{
+$sdf = $_GET['asd'];
+//echo 'opt is:'.$opt;
+//echo $sdf;
+	$row = $db->get_row("SELECT * FROM component WHERE comp_t = '$sdf' ");
+	//echo $row->comp_foldername;
+if($row)
+{ 
+	include_once('../admin/component/'.$row->comp_foldername.'/config/'.$opt.'.php');
+	}	
+
+}
+/*
+elseif($opt == 'link_to_video')
+{
+$sdf = $_GET['asd'];
+	$row = $db->get_row("SELECT * FROM component WHERE comp_t = '$sdf' ");
+if($row)
+{ 
+	include_once('../admin/component/'.$row->comp_foldername.'/config/link_to_video.php');
+	}	
+	
+}elseif($opt == 'link_to_images')
+{
+	$sdf = $_GET['asd'];
+	$row = $db->get_row("SELECT * FROM component WHERE comp_t = '$sdf' ");
+if($row)
+{ 
+	include_once('../admin/component/'.$row->comp_foldername.'/config/link_to_images.php');
+	}
+}elseif($opt == 'link_to_document')
+{
+	$sdf = $_GET['asd'];
+	$row = $db->get_row("SELECT * FROM component WHERE comp_t = '$sdf' ");
+if($row)
+{ 
+	include_once('../admin/component/'.$row->comp_foldername.'/config/link_to_document.php');
+	}
+
+}elseif($opt == 'link_to_category')
+{
+include_once('../admin/component/'.$_GET['asd'].'/config/link_to_category.php');
+}elseif($opt == 'link_to_article')
+{
+include_once('../admin/component/'.$_GET['asd'].'/config/link_to_article.php');
+}
+*/
+
+else{
+	echo 'no options ';
+	}
+
+	
+}
+
+
+
+//else close of hash
+/*$name = $getrow->Field;
+										$findme3   = '_ty';
+										$pos3 = strpos($name, $findme3);
+										if($pos3 == false )
+										{
+										echo 'title is :'.$getrow->Field;
+										$gettitles = $db->get_results("SELECT $id , $name FROM $select");
+									}
+									else{
+										$name = $getrow->Field;
+										$gettitles = $db->get_results("SELECT $id , $name FROM $select");
+										} */
+
+}
+?>

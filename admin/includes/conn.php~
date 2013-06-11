@@ -1,0 +1,7 @@
+<?php
+include_once('ez_sql_core.php'); 
+include_once('ez_sql_mysql.php'); 
+//$db = new ezSQL_mysql('thoughtf_gowild','@^(SBElK,i8@','thoughtf_gowild','localhost');
+
+$db = new ezSQL_mysql('root','tablet','gowild','localhost');
+?>

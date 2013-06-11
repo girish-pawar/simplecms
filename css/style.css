@@ -1,0 +1,41 @@
+.border
+{
+float:left; margin-left:30px; margin-top:80px; width:70%; border:solid 1px black;
+}
+
+.borders
+{
+border: 1px solid #ccc ;
+padding: 15px;	
+margin-bottom: 25px;
+	
+	}
+
+.topborder
+{
+	
+	}
+
+.header-border
+{
+float:left; margin-top:100px; border:solid 1px black;
+	
+	}
+	#back-top {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+
+#back-top span {
+    background: url("../images/top-arrow.png") repeat scroll 0 -50px #000000;
+    border-radius: 30px 30px 30px 30px;
+    display: block;
+    font-size: 0.91667em;
+    height: 50px;
+    opacity: 0.5;
+    transition: all 0.3s ease-in-out 0s;
+    width: 50px;
+}
+

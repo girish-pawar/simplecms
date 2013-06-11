@@ -1,0 +1,96 @@
+
+<style>
+
+.footer {
+    background-color: #F5F5F5;
+    border-top: 1px solid #E5E5E5;
+    margin-top: 70px;
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 0px 0px 8px 8px;
+}
+
+
+</style>
+
+<!--</div>
+ </div>-->
+
+
+<!--bottom text starts-->
+<div id="bdybottom">
+	<div id="footer">
+        <div id="btmtextsqr">
+         <ul>           
+        	<li><h4>Get Involved</h4></li>
+            <li>&nbsp;</li>
+       	   <li><a href="#">Helping GO WILD Grow</a></li>
+            <li><a href="#">Eco Tourism</a> </li>
+		</ul>
+        </div>
+    	<div id="seperator"></div>
+        <div id="btmtextsqr">
+        	<ul>           
+        		<li><h4>GO WILD Edge </h4></li>
+               <li>&nbsp;</li>
+        		<li><a href="#">Our Strength</a></li>
+            	<li><a href="#">Salient Features</a> </li>
+				<li><a href="#">Safety Features</a> </li>
+				<li><a href="#">Rules & Regulations</a> </li>
+			</ul>
+        </div>
+        <div id="seperator"></div>
+        <div id="btmtextsqr">
+        	<ul>           
+        		<li><h4>What Else We Do</h4></li>
+                 <li>&nbsp;</li>
+        		<li><a href="#">Katta</a></li>
+            	<li><a href="#">School Programs</a> </li>
+			</ul>
+        </div>
+        <div id="seperator"></div>
+        <div id="btmtextsqr">
+        	<ul>           
+        		<li><h4>Broadcast Here </h4></li>
+                  <li>&nbsp;</li>
+        		<li><a href="#">Testimonials</a></li>
+            	<li><a href="#">Go Wild Diaries </a></li>
+			</ul>
+        </div>
+        <div id="seperator"></div>
+        <div id="btmtextsqr">
+        	<ul>           
+        		<li><h4>Follow us: </h4></li>
+                 <li>&nbsp;</li>
+        		<li style="vertical-align:middle; line-height:30px;"> <a href="#">Facebook <img src="images/facebook.jpg" alt="facebook_icon" width="35" height="30" border="0" align="absmiddle" /></a></li>
+            	<li style="vertical-align:middle; line-height:30px;"><a href="#">Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/twitter.jpg" alt="twitter_icon" border="0" align="absmiddle"   /></a></li>
+				<li style="vertical-align:middle; line-height:30px;"><a href="#">Orkut &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <img src="images/orkut.jpg" alt="orkut_icon" border="0" align="absmiddle"  /></a></li>
+		
+			</ul>
+        </div>
+         
+    </div>
+   <div id="copytext">© 2013 GO WILD, All Rights Reserved. Designed By Thoughtfulviewfinder Services</div>
+</div>
+
+   
+</body>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>-->
+<script type='text/javascript'>
+// <![CDATA[
+   var pwdwidget = new PasswordWidget('thepwddiv','password');
+   pwdwidget.MakePWDWidget();
+   var mytext = "Hello again";
+			document.write(mytext);
+    var frmvalidator  = new Validator("register");
+    frmvalidator.EnableOnPageErrorDisplay();
+    frmvalidator.EnableMsgsTogether();
+ <?php
+  foreach($_POST as $key=>$value)
+{ ?>   
+    frmvalidator.addValidation("<?php echo $key; ?>","req","Please provide your name");
+<?php } ?>
+// ]]>
+</script>	
+</html>

@@ -1,0 +1,1 @@
+<?php $tablearray = ['batch_charges_type','batch_instructer','batch_table',]; ?><?php $function = 1;  $record = 1;  ?>

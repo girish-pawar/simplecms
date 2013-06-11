@@ -1,0 +1,89 @@
+<link href="http://thoughtfulviewfinder.in/demo/gowild/admin/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
+<script src="http://thoughtfulviewfinder.in/demo/gowild/admin/js/bootstrap-datetimepicker.min.js"></script>
+<form method='POST' action=''>
+
+<?php head11(); ?>
+<h3>Batch Title</h3>
+<input type='text' name='b_t'>
+
+<?php
+
+$tour= $db->get_results("SELECT * FROM tour");
+?>
+<h3>Tour</h3>
+<?php
+foreach($tour as $tours)
+{
+?>
+
+<input type='checkbox' name='dest_id[]' value='<?php echo $tours->t_id;?>'><?php echo $tours->t_t;?><br />
+<?php
+
+}
+?>
+
+ <h3>Start Date  </h3>
+  <div id="datetimepicker1" class="input-append date">
+    <input data-format="yyyy/MM/dd hh:mm:ss" type="text" name="b_s_date"></input>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+  
+   <h3>End Date </h3>
+  <div id="datetimepicker2" class="input-append date">
+    <input data-format="yyyy/MM/dd hh:mm:ss" type="text" name="b_e_date"></input>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#datetimepicker1').datetimepicker({
+      language: 'pt-BR'
+    });
+	    $('#datetimepicker2').datetimepicker({
+      language: 'pt-BR'
+    })
+  });
+</script>
+
+
+<h3>Batch Includes</h3>
+<textarea name='b_includes'></textarea>
+
+<h3>Batch Excludes</h3>
+<textarea name='b_excludes'></textarea>
+
+<h3>Batch Tags</h3>
+<input type='text' name='b_tags'>
+
+
+<h3>Batch Accomodation</h3>
+<textarea name='b_accomodation'></textarea>
+
+<h3>status</h3>
+<select name='b_status'>
+<option value='active'>Active</option>
+<option value='inactive'>Inctive</option>
+
+</select><br />
+
+<?php
+
+$seo_table='seo_detail';
+
+$id=null;
+
+
+$seo_form=Get_SeoForm($seo_table,$id);
+echo $seo_form;
+
+?>
+<!--<input type='submit' name='submit'>!-->
+<input type='hidden' name='seo_table' value='123'>
+<input type='hidden' name='table' value='<?php echo $_GET['type'];?>'>
+</form>

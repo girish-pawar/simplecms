@@ -1,0 +1,501 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {			margin:0;
+				padding:0;
+				background:#FFFFFF;
+				z-index:-2;}
+				
+body {	margin:0;
+		padding:0;
+		background:url(../images/top_body_bg.png) left top repeat-x transparent;
+		z-index:-2;}
+
+h3 {	font-family:"Arial", Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+		font-size:14px;
+		color:#81a311;
+		font-weight:bold;
+		text-shadow:#000 ;
+		text-align:center;
+		display:block;
+		margin:0;
+		padding:0;
+		line-height:40px;
+		vertical-align:middle;}
+
+h5 {
+	font-family:"Arial", Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+	font-size:12px;
+	color:#81a311;
+	font-weight:bold;
+	text-shadow:#000;
+	display:block;
+	margin:0;
+	padding:0;
+	line-height:20px;
+	vertical-align:middle;
+	text-align: left;
+}
+		
+div#container {	width:1000px;
+				height:auto;
+				margin:0 auto;
+				padding:0;}
+				
+div#top {	width:100%;
+			height:550px;
+			margin:0 auto;
+			padding:0;} 
+
+div#leftmenu {	width:35%;
+				height:33px;
+				float:left;
+				margin-top:70px;}
+				
+div#leftmenu ul, ol {	width:100%;
+						margin:0;
+						padding:0;}
+
+
+
+div#leftmenu ul, ol, li a{	margin-left:20px;
+							list-style-type:none;
+							float:left;
+							line-height:35px;
+							vertical-align:middle;
+							font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+							font-size:13px;
+							color:#fff;
+							overflow:hidden;
+							text-decoration:none;
+							display:block;
+							text-align:left;
+							padding:0;}	
+
+div#leftmenu ul, ol, li a:hover {	margin-left:20px;
+							list-style-type:none;
+							float:left;
+							line-height:35px;
+							vertical-align:middle;
+							font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+							font-size:13px;
+							color:#8db40d;
+							overflow:hidden;
+							text-decoration:none;
+							display:block;
+							text-align:left;
+							padding:0;}						
+							
+												
+
+div#logo {
+	width:25%;
+	height:200px;
+	float:left;
+	z-index:100;
+	position:relative;
+	left:auto;
+	padding:0;
+				}
+				
+div#rightmenu {	width:38%;
+				height:33px;
+				float:left;
+				margin-top:70px;}
+
+div#rightmenu ul, ol {	width:100%;
+						margin:0;
+						padding:0;}
+						
+
+div#rightmenu ul, ol, li a{	margin-left:20px;
+							list-style-type:none;
+							float:left;
+							text-decoration:none;
+							line-height:35px;
+							vertical-align:middle;
+							font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+							font-size:13px;
+							color:#fff;
+							overflow:hidden;
+							display:block;
+							text-align:left;
+							padding:0;}	
+
+div#rightmenu ul, ol, li a:hover{
+	margin-left:20px;
+	list-style-type:none;
+	float:left;
+	text-decoration:none;
+	line-height:35px;
+	vertical-align:middle;
+	font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+	font-size:13px;
+	color:#8db40d;
+	display:block;
+	text-align:left;
+	padding:0;
+}	
+		
+
+	div#slideshow {
+    background: url("../images/banner_images/banner_img1.png") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 450px;
+    width: 100%;
+    z-index:0;
+	margin-top:-90px;
+	
+}
+
+div#homeleftpart {	width:415px;
+				height:auto;
+				float:left;
+				margin-top:23px;
+				margin-left:15px;}
+				
+
+div#homerightpart {	width:545px;
+					height:auto;
+					float:right;
+					margin-left:20px;
+				   }
+div#datawrapper {	width:100%;
+					height:auto;
+					clear:both;
+					margin:23px auto;
+					overflow:hidden;
+					}
+	   
+div#photowrkshoptitle {	width:100%;
+					height:40px;
+					background:#272e16;
+					}	
+					
+div#photowrkshopimage {	width:100%;
+					height:auto;
+					background:#fff;
+					}	
+					
+div#icons {	width:172px;
+			height:142px;
+			float:left;
+			margin-top:23px;
+			margin-left:05px;
+			}
+div#iconsmall{	width:160px;
+			height:134px;
+			float:left;
+			margin-top:23px;
+			margin-left:05px;
+			}
+			
+div#download {
+	width:545px;
+	height:150px;
+	clear:both;
+	margin-top:23px;
+	margin-left:5px;
+	background:url(../images/download_banner.png) left top no-repeat;
+}
+				
+				
+				
+div#bdybottom {width:100%;
+		height:220px;
+		margin:0;
+		clear:both;
+		padding:0;
+		position:relative;
+		background:url(../images/bottom_bg.jpg) left bottom repeat-x transparent;}
+
+div#footer {	width:1000px;
+				height:150px;
+				padding:15px;
+				clear:both;
+				margin:0 auto 0 auto;
+				}
+
+div#btmtextsqr{	width:178px;
+				height:auto;
+				float: left;
+				margin-left:20px;
+				}
+				
+div#seperator {	width:2px;
+				height:120px;
+				float:left;
+				background:url(../images/bottom_seperator.png) center no-repeat;
+				}
+
+
+div#btmtextsqr ul {	margin:0;
+					padding:0;
+					
+				
+}
+
+div#btmtextsqr ul li {
+	list-style-type:none;
+	font-family: Arial, Helvetica, sans-serif, "Tw Cen MT Condensed Extra Bold", "Tw Cen MT Condensed";
+	font-size:12px;
+	color:#FFF;
+	display:block;
+	list-style-type:none;
+	text-decoration:none;
+	float: left;
+	width: 172px;
+	line-height:20px;
+	margin-left:3px;
+	text-align: left;
+					
+}
+
+div#btmtextsqr ul li a{
+	list-style-type:none;
+	font-family: Arial, Helvetica, sans-serif, "Tw Cen MT Condensed Extra Bold", "Tw Cen MT Condensed";
+	font-size:12px;
+	color:#FFF;
+	display:block;
+	list-style-type:none;
+	text-decoration:none;
+	float: left;
+	width: 172px;
+	line-height:20px;
+	margin-left:3px;
+	text-align: left;
+					
+}
+
+div#btmtextsqr ul li a:hover{
+	list-style-type:none;
+	font-family: Arial, Helvetica, sans-serif, "Tw Cen MT Condensed Extra Bold", "Tw Cen MT Condensed";
+	font-size:12px;
+	color:#8db40d;
+	display:block;
+	list-style-type:none;
+	text-decoration:none;
+	float: left;
+	width: 172px;
+	line-height:20px;
+	margin-left:3px;
+	text-align: left;
+					
+}
+
+				
+h4{		font-family: Arial, Helvetica, sans-serif, "Tw Cen MT Condensed Extra Bold", "Tw Cen MT Condensed";
+			font-size:13px;
+			color:#FFF;
+			font-weight:bold;
+			margin:0;
+			padding:0;
+			display:block;
+			list-style-type:none;
+	}
+
+div#copytext {	width:1000px;
+				height:40px;
+				margin:0px auto;
+				padding:0;
+				line-height:40px;
+				text-align:center;
+				font-family:Arial, Helvetica, sans-serif, "Tw Cen MT Condensed Extra Bold", "Tw Cen MT Condensed";
+				font-size:10px;
+				color:#fff;
+				clear:both;
+				}
+
+/* for other than home page*/
+div#leftpart {	width:220px;
+				height:auto;
+				float:left;}
+
+div#rightpart {	width:730px;
+				height:auto;
+				float:right;
+				margin-left:10px;
+			}		
+div#vertdownload {	width:220px;
+					height:auto;
+					margin: 20px auto;
+					}
+div#sidemenu {	width:218px;
+				height:auto;
+				float:left;
+				padding:0;
+				margin:23px auto;
+			}
+
+div.sidemenus {	font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+				font-size:15px;
+				color:#2e4208;
+				text-align:left;
+				vertical-align:middle;
+				line-height:30px;
+				margin:0;
+				padding:0;
+				}
+div.sidemenus ul { 	margin:0;
+						padding:0;
+						
+				}
+
+div.sidemenus ul li{ 	margin:0;
+						padding:0;
+						list-style-type:none;
+						display:block;
+						
+				}
+
+div.sidemenus ul li a{	width:218px;
+						font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+				font-size:15px;
+				color:#2e4208;
+				text-align:left;
+				font-weight:bold;
+				text-indent:15px;
+				vertical-align:middle;
+				text-decoration:none;
+				line-height:30px;
+				}
+				
+div.sidemenus ul li a:hover{	width:218px;
+								font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+				font-size:15px;
+				color:#360;
+				background:url(../images/side_menu_hover_img.png) left top no-repeat;
+				background-position:left;
+				margin-left:13px;
+				text-align:left;
+				font-weight:bold;
+				text-indent:15px;
+				vertical-align:middle;
+				line-height:30px;
+				}
+div#categorytitle {	width:100%;
+					height:30px;
+					background:#597d1a;
+					margin: 23px auto;
+					padding:0;
+					clear:both;
+					}
+
+div.categorytitletxt {	width:80%;
+						height:30px;
+						float:left;
+						font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+						font-size:14px;
+						color:#fff;
+						text-align:left;
+						font-weight:bold;
+						vertical-align:middle;
+						line-height:30px;
+						text-indent: 20px;
+					}
+
+div.categorytitletxt a{	width:80%;
+						height:30px;
+						float:left;
+						font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+						font-size:14px;
+						color:#fff;
+						text-align:left;
+						font-weight:bold;
+						vertical-align:middle;
+						text-decoration:none;
+						line-height:30px;
+						text-indent: 20px;
+					
+					}
+					
+div#pagetitle {	width:100%;
+				height:30px;
+				margin: 23px auto;
+				padding:0;
+				clear:both;
+					}
+					
+div.pagetitletext {	width:30%;
+				height:30px;
+				float:left;
+				font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+				font-size:20px;
+				color:#597d1a;
+				text-align:left;
+				font-weight:bold;
+				vertical-align:middle;
+				line-height:30px;
+				text-indent: 20px;
+					}
+						
+div.catereadmoretxt a {	width:20%;
+						height:30px;
+						float:right;
+						font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+						font-size:11px;
+						color:#fff;
+						text-align:left;
+						font-weight:bold;
+						vertical-align:middle;
+						line-height:30px;
+					
+					}
+					
+
+
+div#maincategorydata { width:100%;
+						height:auto;
+						margin-top:10px;
+						padding:0;
+						text-align:justify;
+						clear:both;
+						}
+
+div.catagoryimage {	width:auto;
+					height:auto;
+					float:left;
+					margin-bottom:15px;
+					vertical-align:middle;
+					border:#597d1a 2px outset;
+					padding:5px;
+					
+					}
+div.catagorytext p{	width:59%;
+					height:100%;
+					float:left;
+					height:auto;
+					text-align:justify;
+					font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+					font-size:12px;
+					color:#000;
+					margin-left:2%;
+					margin-top:0;
+					padding:0;
+					}
+
+div.catagorytext2 p{
+	width:85%;
+	height:100%;
+	float:left;
+	height:auto;
+	text-align:justify;
+	font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+	font-size:12px;
+	color:#000;
+	margin-left:2%;
+	margin-top:0;
+	padding:0;
+					}
+div.datastyle {
+	text-align:justify;
+	font-family:"Arial", Helvetica, sans-serif, Tw Cen MT Condensed Extra Bold, Tw Cen MT Condensed;
+	font-size:12px;
+	color:#000;
+	margin-left:1%;
+	line-height:20px;
+	vertical-align:middle;
+	padding:0;
+					
+					}
+/* for other than home page*/	

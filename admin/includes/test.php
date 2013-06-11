@@ -1,0 +1,1 @@
+	<!-- 		<a href="../admin/details.php?type=<?php echo $table_name ?>&tmpl=default&id=<?php echo $getname->$id; ?>" title="View All Details About This <?php echo $table_name ?>" ><?php echo $getname->$name.',' ?></a> -->

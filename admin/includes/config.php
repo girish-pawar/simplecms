@@ -1,0 +1,1 @@
+<?php $tablearrays ="batch_charges_type,batch_instructer,batch_table,category,country,currency,destination,discount_type,instructor,instructor_type,"; ?><?php $function = 1;  $record = 3;    $homerecord = 4;  ?>

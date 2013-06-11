@@ -1,0 +1,1 @@
+<?php  $servicetype = 'doc,xls,pdf,jpeg,png'; ?>

@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Upload</title>
+<!--[if IE]><script type="text/javascript" src="js/utils/fixpng.js"></script><![endif]-->
+<link rel="stylesheet" type="text/css" href="Upload_files/index.css">
+</head>
+<body style="overflow:hidden; height:200px">
+
+<div class="dialog">
+	<div class="top">
+		<div title="html5" class="headline upload">
+			<h2>Upload</h2>
+			<p class="description">Use the form to upload files.</p>
+		</div>
+	</div>
+
+	<div id="facts" class="facts">Valid extensions: gif, jpg, png, pdf, zip<br>
+		Max upload size: 10 MB<br>
+		Path: /<br></div>
+
+	<script id="facts_template" type="text/moxiecode-template"><![CDATA[
+		Valid extensions: {extensions}<br />
+		Max upload size: {maxsize}<br />
+		Path: {path}<br />
+	]]></script>
+
+	<div style="display: block;" id="content">
+		<div id="uploadarea">
+			
+			<div id="singleupload_view">
+				<div id="uploadForms">
+					<form id="uploadForm_0" method="post" action="../../stream/index.php" enctype="multipart/form-data" target="uploadFrame">
+						<div id="uploadFormContents_0">
+							<input name="cmd" value="fm.upload" type="hidden">
+							<input name="path" value="{default}" type="hidden">
+							<input name="domain" value="" type="hidden">
+							<input name="html4" value="true" type="hidden">
+
+							<table>
+								<tbody>
+									<tr>
+										<td><label for="file0">File to upload:</label></td>
+										<td><input id="file0" name="file0" size="20" class="file required" type="file"></td>
+									</tr>
+	
+									<tr>
+										<td><label for="name0">As file name:</label></td>
+										<td><input id="name0" name="name0" size="42" maxlength="255" class="text required" type="text"></td>
+									</tr>
+								</tbody>
+							</table>
+	
+							<input name="upload" value="Upload" class="submit default" type="submit">
+							<input id="cancel" name="cancel" value="Cancel" class="button cancel" type="button">
+						</div>
+					</form>
+				</div>
+
+				<!-- File will be uploaded into this -->
+				<iframe id="uploadFrame" name="uploadFrame" src="javascript:''" frameborder="0" height="1" width="1"></iframe>
+			</div>
+	
+			<div style="display: block;" id="multiupload_view">
+				<!-- Gets moved over add and addmore buttons -->
+				<a style="top: 0px; left: 0px; width: 182px; height: 26px;" id="addshim" href="#"></a>
+
+				<div id="selectview">
+					<p><a id="add" class="addbutton" href="#">Choose files</a></p>
+					<div class="uploadtype">If you're having trouble uploading you can always use the <a id="singleupload" href="#basic">basic uploader</a>.</div>
+				</div>
+
+				<div id="fileblock">
+					<table id="fileshead">
+						<thead>
+							<tr>
+								<td width="300">File</td>
+								<td width="100">Size</td>
+								<td width="100">Status</td>
+							</tr>
+						</thead>
+					</table>
+
+					<div id="filelist">
+						<table id="files">
+							<thead>
+								<tr>
+									<td width="300"></td>
+									<td width="100"></td>
+									<td width="80"></td>
+								</tr>
+							</thead>
+
+							<tbody>
+								<!-- Gets filled with file items -->
+							</tbody>
+						</table>
+					</div>
+
+					<p id="statsrow"><span id="stats"></span> <a id="addmore" href="#action">Add more?</a></p>
+
+					<div style="position:relative">
+						<p style="position:absolute;"><a id="uploadstart" href="#action">Upload to server</a></p>
+
+						<div id="status">
+							<div id="progressbar"></div>
+							<div class="progresstext"><span id="progressinfo"></span>&nbsp;<a id="abortupload" href="#action">Abort upload</a></div>
+						</div>
+					</div>
+				</div>
+			<div class="plupload html5" style="position: absolute; background: none repeat scroll 0% 0% transparent; width: 182px; height: 26px; overflow: hidden; z-index: 99999; opacity: 0; top: 0px; left: 0px;" id="p17m8h492413np1fpl15hn1miukst0_html5_container"><input id="p17m8h492413np1fpl15hn1miukst0_html5" style="font-size: 999px; float: right; cursor: pointer;" accept="image/gif,image/jpeg,image/png,application/pdf,application/zip" multiple="multiple" type="file"></div></div>
+		</div>
+	</div>
+</div>
+
+<script id="filelist_item_template" type="text/moxiecode-template">
+	<![CDATA[
+		<tr id="{id}">
+			<td class="fname"><a href="#action" class="rename">{name}</a></td>
+			<td class="size">{size:sizefix}</td>
+			<td class="status"><a href="#action" class="remove">{#upload.remove}</a></td>
+		</tr>
+	]]>
+</script>
+
+<script type="text/javascript" src="Upload_files/browserplus-min.js"></script>
+<script type="text/javascript" src="Upload_files/index_003.php"></script>
+<script type="text/javascript" src="Upload_files/index.php"></script>
+<script type="text/javascript" src="Upload_files/index_002.php"></script>
+
+
+
+</body></html>

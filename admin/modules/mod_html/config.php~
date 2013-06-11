@@ -1,0 +1,19 @@
+	<?php
+include_once($_SERVER['DOCUMENT_ROOT'].'/gowild/admin/includes/tinymce.php');
+//include_once($_SERVER['DOCUMENT_ROOT'].'/gowild/admin/includes/header.php');
+/*session_start();
+$ad_id= $_SESSION['username'];
+include_once($_SERVER['DOCUMENT_ROOT'].'/gowild/admin/includes/header.php');
+*/
+?>
+
+<div class="content">
+   <div class="container-fluid">
+            <div class="row-fluid">
+<div class="block span12">
+<textarea name="desc">
+
+
+</textarea>
+
+</div></div></div></div>

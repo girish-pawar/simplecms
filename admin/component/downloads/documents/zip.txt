@@ -1,0 +1,3 @@
+./configure  --with-apxs2=/usr/sbin/apxs --enable-mbstring --with-mysql=/usr --with-pear --enable-sockets 
+             --with-gd --with-jpeg-dir=/usr --with-ttf --with-freetype-dir=/usr --with-zlib-dir=/usr 
+             --with-iconv --with-curl --with-openssl --with-mysqli --enable-soap --with-xmlrpc --enable-zip

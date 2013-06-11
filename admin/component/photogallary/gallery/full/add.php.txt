@@ -1,0 +1,38 @@
+
+<script type="text/javascript">
+var xmlhttp;
+function suggest()
+{
+if(window.XMLHttpRequest)
+{
+xmlhttp=new XMLHttpRequest();
+}
+else
+{
+xmlhttp= new ActiveXObject('Micosoft.XMLHTTP');
+}
+xmlhttp.onreadystatechange=function()
+{
+if(xmlhttp.readyState==4 && xmlhttp.status==200)
+{
+document.getElementById("photogallary").innerHTML=xmlhttp.responseText;
+}
+}
+xmlhttp.open('GET','./component/photogallary/new_gallary.php?type='+document.getElementById('gallary').value,true);
+xmlhttp.send();
+}
+</script>
+
+<br />
+<form method='POST' action=''>
+Gallary :<select name='userid' id='gallary' onblur='suggest();'>
+<option value='existing_use'>Existing Use</option>
+<option value='new_gallary'>NEw Gallary</option>
+</select>
+<div id='photogallary'>
+
+</div>
+<input type='hidden' name='seo_table' value=''>
+<!--<input type='hidden' name='id' value='<?php echo $_GET['id'];?>'>!-->
+<input type='hidden' name='table' value='gallary'>
+</form>

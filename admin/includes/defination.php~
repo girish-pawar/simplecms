@@ -1,0 +1,13 @@
+<?php
+define('site_root','../gowild/',true);
+//define("site_root",'http://thoughtfulviewfinder.in/demo/gowild/',true);
+//define('rootfolder',$_SERVER['DOCUMENT_ROOT'].'/demo/gowild',true);
+define('rootfolder',$_SERVER['DOCUMENT_ROOT'].'/gowild',true);
+define('admin',rootfolder.'/admin',true);
+//define('admin',rootfolder.'/admin',true);
+define("mainsite",site_root, true);
+include_once('conn.php');
+include_once('function.php');
+//include_once('tinymce.php');
+include_once(rootfolder.'/admin/component/photogallary/component_defination.php');
+?>

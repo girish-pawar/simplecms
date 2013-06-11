@@ -1,0 +1,146 @@
+<?php
+
+function Front_DisplayModule($modtype){
+	global $db;
+	$modfolder = $db->get_row("SELECT * FROM moduletype WHERE mod_id='$modtype'");
+	return $modfolder->mod_folder.'/display.php';
+}
+
+
+function Front_loadModules($position,$type)
+{
+global $db;
+$topmodules = $db->get_results("SELECT * FROM moduledata WHERE position='$position'");
+//echo '<ul class="nav nav-tabs">';
+
+foreach($topmodules as $topmodule)
+{
+if($type == 'yes')
+{
+//echo'<img src=http://192.168.2.12/gowild/admin/component/slideshow/images/6.jpg>';
+//echo $topmodule->mod_name;         //  display top or other	
+//echo '<li><a href="" '.$topmodule->mod_name.'</a></li>';         //  display top or other
+}
+$displaymodule = Front_DisplayModule($topmodule->mod_type);
+include(rootfolder.'/modules/'.$displaymodule);
+}
+
+}
+
+function Front_DisplayComponent($modtype){
+	global $db;
+	$modfolder = $db->get_row("SELECT * FROM set_image WHERE set_id='$modtype'");
+	return $modfolder->si_id;
+	//return $modfolder->image_name;.'/display.php';
+}
+
+function Front_loadComponent($position)
+{
+global $db;
+//$topmodules = $db->get_results("SELECT * FROM sets WHERE set_status = 'Publish' ");
+
+include_once(rootfolder.'/admin/component/slideshow/display.php');
+
+}
+
+/*function Front_loadComponent($position)
+{
+global $db;
+$topmodules = $db->get_results("SELECT * FROM sets WHERE set_status = 'Publish' ");
+//echo '<ul class="nav nav-tabs">';
+
+/*foreach($topmodules as $topmodule)
+{
+/*if($type == 'yes')
+{
+//echo'<img src=http://192.168.2.12/gowild/admin/component/slideshow/images/6.jpg>';
+//echo $topmodule->mod_name;         //  display top or other	
+//echo '<li><a href="" '.$topmodule->mod_name.'</a></li>';         //  display top or other
+}
+
+print_r($topmodule);
+//$displaymodule = Front_DisplayComponent($topmodule->set_id);
+//echo $displaymodule;
+include_once(rootfolder.'/admin/component/slideshow/display.php');
+}*/
+
+
+function Front_ProdInfo($id)
+{	
+	global $db; 
+	$prod = $db->get_row("SELECT * FROM product WHERE prid='$id'");
+	return $prod;
+	}
+	
+	
+	function Front_ProdCatInfo($id){
+	
+	global $db; 
+	$prod = $db->get_row("SELECT * FROM category WHERE cid='$id'");
+	return $prod;
+	}
+
+function Front_ArtInfo($id)
+{	
+	global $db; 
+	$prod = $db->get_row("SELECT * FROM article WHERE aid='$id'");
+	return $prod;
+	}
+	
+	function Front_ArtCatInfo($id){
+	
+	global $db; 
+	$prod = $db->get_row("SELECT * FROM article_category WHERE acid='$id'");
+	return $prod;
+	}
+
+function Front_DetectLinks($linkid,$linktype){
+	global $linkto;
+	global $db;
+	
+	switch($linktype)
+	{
+		
+	case 'product':
+		
+		$prodinfo = Front_ProdInfo($linkid);
+		$linkto = 'http://vinzai.com/newsite/product/'.$prodinfo->seotitle.'/';
+	break;
+	
+		case 'prodcat':
+		
+		$prodinfo = Front_ProdCatInfo($linkid);
+		$linkto = 'http://vinzai.com/newsite/category/'.$prodinfo->seotitle.'/';
+	break;
+	
+		case 'art':
+		
+		$prodinfo = Front_ArtInfo($linkid);
+		$linkto = 'http://vinzai.com/newsite/article/'.$prodinfo->seotitle.'/';
+	break;
+	
+		case 'artcat':
+		
+		$prodinfo = Front_ArtCatInfo($linkid);
+		$linkto = 'http://vinzai.com/newsite/articlecategory/'.$prodinfo->seotitle.'/';
+	break;
+	
+	case 'contact':
+		
+		//$prodinfo = Front_ArtCatInfo($linkid);
+		//$linkto = 'http://vinzai.com/newsite/contact/default/';
+	break;
+	
+	case 'hash':
+	//$linkto = '#';
+	break;
+	
+	default:
+	
+	
+	}	
+	return $linkto;
+}
+
+
+?>

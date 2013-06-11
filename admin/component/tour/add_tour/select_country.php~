@@ -1,0 +1,102 @@
+
+<?php if(isset($_GET['id']))
+{
+$id = $_GET['id'];	
+$getrecord = $db->get_row("SELECT * FROM tour_country WHERE t_id = '$id'");
+$record = rtrim($getrecord->tour_c_id,',');
+$records = array();
+$records = explode(',',$record);
+	}else{
+$id = null;		
+		} 
+		
+				if(isset($_GET['t_id']) )
+		{
+$t_id = $_GET['t_id'];			
+			}else{
+				$t_id = null;	
+				
+				}
+		?>
+
+<form method='POST' action=''>
+<h3>Select Country</h3>
+
+<?php
+$instructer= $db->get_results("SELECT * FROM country");
+foreach($instructer as $ins)
+{
+if($id)
+{
+	if(in_array($ins->c_id,$records))
+	{
+?>
+<input type='checkbox' checked="true" name='tour_c_id[]' value='<?php echo $ins->c_id;?>'><?php echo $ins->c_t;?><br />
+<?php
+}else{
+	?>
+<input type='checkbox' name='tour_c_id[]' value='<?php echo $ins->c_id;?>'><?php echo $ins->c_t;?><br />
+<?php
+}
+
+}
+
+//}
+
+elseif(isset($_GET['t_id']) != null){
+?>
+<input type='checkbox' name='tour_c_id[]' value='<?php echo $ins->c_id;?>'><?php echo $ins->c_t;?><br />
+<?php
+	}else{
+		?>
+<input type='checkbox' name='tour_c_id[]' value='<?php echo $ins->c_id;?>'><?php echo $ins->c_t;?><br />
+<?php
+		}
+}
+?>
+<?php
+if(isset($_GET['id']))
+{
+?>
+<input type='hidden' name='id' value='<?php echo $getrecord->tc_id;?>'>
+<?php
+}
+if($t_id != null )
+{
+?>
+<input type='hidden' name='t_id' value='<?php echo $_GET['t_id'];?>'>
+<?php
+}
+else{
+	?>
+<input type='hidden' name='t_id' value='<?php echo $_GET['id'];?>'>
+	
+<?php } ?>
+
+<input type='hidden' name='seo_table' value=''>
+
+<input type='hidden' name='userid' value='<?php echo $_SESSION['ad_id'];?>'>
+
+<input type='hidden' name='table' value='tour_country'>
+<?php
+
+/*if($t_id != null )
+{*/
+?>
+<input type='submit' class="btn " name='submit'>
+<input type='submit' class="btn btn-primary" name='SaveAndCont' value='Save & Continue'>
+
+<?php
+/*}
+else{*/
+	?>
+<!--<input type='submit' class="btn " name='update_tour_countrty'>
+<input type='submit' class="btn btn-primary" name='SaveAndCont' value='Save & Continue'>-->
+<?php //} ?>
+</form>
+<?php
+
+
+
+
+?>

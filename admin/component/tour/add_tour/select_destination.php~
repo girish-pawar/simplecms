@@ -1,0 +1,204 @@
+<?php if(isset($_GET['id']))
+{
+	
+$id = $_GET['id'];	
+$getrecord = $db->get_row("SELECT * FROM tour_destination WHERE t_id = $id");
+$record = rtrim($getrecord->d_id,',');
+$records = array();
+$records = explode(',',$record);
+	}else{
+	
+$id = null;		
+		} 
+		
+		if(isset($_GET['t_id']) )
+		{
+$t_id = $_GET['t_id'];			
+			}else{
+				$t_id = null;	
+				
+				}
+		?>
+
+
+<form method='POST' action=''>
+<h3> Select Destination</h3>
+
+<?php
+			if(isset($_GET['id']))
+			{
+			$getcids = $db->get_row("SELECT * FROM tour_country WHERE t_id = $id");
+			}else{
+			$getcids = $db->get_row("SELECT * FROM tour_country WHERE t_id = '$t_id'");
+			}
+				if($getcids)
+				{
+				//echo 'getcids';
+				$getids = array();
+				$getcidss = rtrim($getcids->c_id,',');
+				$getids = explode(',',$getcidss);
+				//print_r($getids);
+				
+				$instructers = '';
+				$get_cids = '';
+							foreach($getids as $getid)
+							{
+											$getcountrys = $db->get_results("SELECT d_id FROM destination WHERE c_id LIKE '%$getid%'");
+											//print_r($getcountrys);
+											foreach($getcountrys as $getcountry)
+											{
+													$get_cids .= $getcountry->d_id.',';
+												}
+							
+							}
+				
+				
+				$ids = array();
+				$idss = rtrim($get_cids,',');
+				$ids = explode(',',$idss);	
+					
+				$result = array_unique($ids);
+				//print_r($result);
+				//print_r($instructers);
+				}
+
+						if(isset($_GET['id']))
+						{
+						$getcatids = $db->get_row("SELECT * FROM tour_category WHERE t_id = $id");
+						}else{
+							$getcatids = $db->get_row("SELECT * FROM tour_category WHERE t_id = '$t_id'");
+							}
+
+				if($getcatids)
+				{
+				$catids = array();
+				$catidss = rtrim($getcatids->ct_id,',');
+				 //echo $catidss;
+				$catids = explode(',',$catidss);
+				
+				$get_catids = '';
+				
+							foreach($catids as $catid)
+							{
+											foreach($result as $destination)
+											{
+																$getdests = $db->get_results("SELECT * FROM destination WHERE d_id = '$destination' AND ct_id LIKE '%$catid%' ");	
+																if($getdests)
+																{	
+																	foreach($getdests as $getdest)
+																	{
+																$get_catids .= $getdest->d_id.',';
+																}
+																}
+											
+											
+												}
+							}
+				//print_r($get_catids);
+				$ids = array();
+				$idss = rtrim($get_catids,',');
+				$ids = explode(',',$idss);	
+					
+				$result1 = array_unique($ids);
+				//print_r($result1);
+				
+				} 
+
+			if(isset($_GET['id']))
+			{
+			$array = array();
+			$arr = rtrim($getrecord->d_id,',');
+			$array = explode(',',$arr);
+			$results = array_diff($result1,$array);
+			//$results1 = array_unique($results);
+			//print_r($results);
+			}else {
+				$results = null;
+			}
+//print_r($array);
+/*if(isset($t_id))
+{*/
+if($results != null)
+{ 
+			foreach($results as $result)
+			{
+			$ins = $db->get_row("SELECT * FROM destination WHERE d_id = $result");
+			?>
+		
+		<input type='checkbox' name='d_id[]' value='<?php echo $ins->d_id;?>'><?php echo $ins->d_t;?><br />
+		
+		<?php
+		
+		}  // foreach close
+}else{
+	
+		if($result1)
+		{
+					foreach($result1 as $res)
+					{
+						$ins = $db->get_row("SELECT * FROM destination WHERE d_id = $res");
+					?>
+					
+					<input type='checkbox' name='d_id[]' value='<?php echo $ins->d_id;?>'><?php echo $ins->d_t;?><br />
+					
+					<?php
+					
+					}  // foreach close
+		} //if close
+}
+
+			if(isset($_GET['id']))
+			{
+			/*	if($id != null)
+				{*/
+						if($records)
+						{
+										foreach($records as $record)
+										{
+											$ins = $db->get_row("SELECT * FROM destination WHERE d_id = $record");
+										?>
+										
+										<input type='checkbox' name='d_id[]' checked="true" value='<?php echo $ins->d_id;?>'><?php echo $ins->d_t;?><br />
+										
+										<?php
+										
+										}  // foreach close
+						} //if close
+				//}
+				
+				
+				}
+
+?>
+<?php
+if(isset($_GET['id']))
+{
+?>
+<input type='hidden' name='id' value='<?php echo $getrecord->td_id;?>'>
+<?php
+}
+if($t_id != null )
+{
+?>
+<input type='hidden' name='t_id' value='<?php echo $_GET['t_id'];?>'>
+<?php
+}
+else{
+	?>
+<input type='hidden' name='t_id' value='<?php echo $_GET['id'];?>'>
+	
+<?php } ?>
+<input type='hidden' name='seo_table' value=''>
+
+<input type='hidden' name='userid' value='<?php echo $_SESSION['ad_id'];?>'>
+
+<input type='hidden' name='table' value='tour_destination'>
+<input type='submit' class="btn " name='submit'>
+	<input type='submit' class="btn btn-primary" name='SaveAndCont' value='Save & Continue'>
+</form>
+<?php
+
+
+
+
+?>

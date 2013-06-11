@@ -1,0 +1,62 @@
+<?php
+include_once('../admin/includes/defination.php');
+global $db;
+if($_GET){
+if($_GET['type'] == 'product')
+{
+	$seotitle = $_GET['seotitle']	;
+	$pr = $db->get_row("SELECT * FROM product WHERE seotitle='$seotitle'");
+	//print_r($pr); 
+	$m_t = $pr->metatitle;
+	$m_d = $pr->metadesc;
+	$m_k = $pr->metakeywords;
+	
+	}	elseif($_GET['type'] == 'category')
+{
+	$seotitle = $_GET['seotitle']	;
+	$cat = $db->get_row("SELECT * FROM category WHERE seotitle='$seotitle'");
+	//print_r($cat); 
+	$m_t = $cat->metatitle;
+	$m_d = $cat->metadesc;
+	$m_k = $cat->metakeywords;
+	
+	}
+	elseif($_GET['type'] == 'article')
+{
+	$seotitle = $_GET['seotitle']	;
+	$cat = $db->get_row("SELECT * FROM article WHERE seotitle='$seotitle'");
+	//print_r($cat); 
+	$m_t = $cat->metatitle;
+	$m_d = $cat->metadesc;
+	$m_k = $cat->metakeywords;
+	
+	}	
+	elseif($_GET['type'] == 'articlecategory')
+{
+	$seotitle = $_GET['seotitle']	;
+	$cat = $db->get_row("SELECT * FROM article_category WHERE seotitle='$seotitle'");
+	//print_r($cat); 
+	$m_t = $cat->metatitle;
+	$m_d = $cat->metadesc;
+	$m_k = $cat->metakeywords;
+	
+	}
+	elseif($_GET['type'] == 'contact')
+{
+	$seotitle = $_GET['seotitle']	;
+	//$cat = $db->get_row("SELECT * FROM article WHERE seotitle='$seotitle'");
+	//print_r($cat); 
+	$m_t = 'Contact us';
+	$m_d = 'Contact page of vinzai';
+	$m_k = 'Contact page of vinzai';
+	
+	}	
+	
+	
+	} else {
+$m_t = 'Wildlife, Adventure, Kids Camps, International camps, Tours & Photography';		
+$m_d = 'Wildlife, Adventure, Kids Camps, International camps, Tours & Photography';
+$m_k = 'Wildlife, Adventure, Kids Camps, International camps, Tours & Photography';
+		}
+
+?>

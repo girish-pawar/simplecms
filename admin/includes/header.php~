@@ -1,0 +1,851 @@
+<?php
+include_once('defination.php');
+if(isset($_POST['submit']) || isset($_POST['SaveAndCont'] ))
+{
+//echo '<pre>';
+//print_r($_POST);	
+//echo '</pre>';	
+	
+if(isset($_POST['g_folder']))
+{
+$folder=mkdir($_SERVER["DOCUMENT_ROOT"].'/demo/gowild/admin/component/photogallary/'.$_POST['g_folder'], 0755);
+$full=mkdir($_SERVER["DOCUMENT_ROOT"].'/demo/gowild/admin/component/photogallary/'.$_POST['g_folder'].'/full',0755);
+$thum=mkdir($_SERVER["DOCUMENT_ROOT"].'/demo/gowild/admin/component/photogallary/'.$_POST['g_folder'].'/thumbnail',0755);
+}
+
+$type = $_POST['table'];
+if(isset($_POST['id']))
+{
+
+if($_POST['seo_table']!='')
+{
+$seo_table='seo_detail';
+}
+else
+{
+$seo_table=null;
+}
+
+$id =$_POST['id'];
+//if($type !='gallery' || $type != 'tour_country' || $type != 'tour_category' || $type != 'tour_destination')
+if($type !='gallery' )
+{
+$update=Form_Update($type,$id,$seo_table);
+echo $update;
+}
+}
+else
+{
+if($_POST['seo_table']!='')
+{
+$seo_table='seo_detail';
+}
+else
+{ 
+$seo_table=null;
+}
+$insert=Form_insert($type,$seo_table,$_POST);
+//echo '$insert is:'.$insert;
+}
+if($type =='batch_table' && $id=='')
+{
+//header('location:add.php?type=batch_fee&tmpl=default&b_id='.$insert);
+header('location:index.php?option=component&kind=batch&method=add_batch&process=batch_fee&type=batch_table&tmpl=default&b_id='.$insert);
+}
+if($type=='gallery')
+{
+$pageURL =$_SERVER["REQUEST_URI"];
+$page=explode('step=1',$pageURL);
+header('location:'.$page[0].'step=2&g_id='.$insert);
+}
+//$type1 = $_GET['type'];
+//$id1 = $_GET['id'];
+//$vgid = $_GET['vg_id'];
+$vgid = $insert;
+//echo 'vgid is:'.$insert;
+
+//$step = $_GET['step'];
+if(isset($_GET['kind']) == 'videogallery')
+{
+if($step == '2' )
+{//echo 'step2 complete';
+$type1 = $_GET['type'];
+$id1 = $_GET['id'];
+$step = $_GET['step'];
+header('location:index.php?option=component&kind=videogallery&method=gallery&process=add&type='.$type1.'&id='.$id1.'&step=3&vg_id='.$insert);
+}
+elseif($step == '3')
+{//echo 'step3 complete';
+//header('location:index.php?option=component&kind=videogallery&method=gallery&process=add&type='.$type1.'&id='.$id1.'&step=3&vg_id='.$insert);
+}
+}
+
+if($type == 'tour' && isset($_GET['process']) == 'add')
+{
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=select_country&type=tour&t_id='.$insert);
+}
+
+if($type == 'tour' && isset($_GET['process']) == 'add' && isset($_GET['id']) != null)
+{
+
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=select_country&type=tour&id='.$_GET['id']);
+}
+if(isset($_POST['t_id']))
+{
+$t_id= $_POST['t_id'];
+}
+if($type == 'tour_country' && isset($_GET['process']) == 'add')
+{
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=select_category&type=tour&t_id='.$t_id);
+}
+
+if($type == 'tour_country' && isset($_GET['process']) == 'add' && isset($_GET['id']) != null)
+{
+		/*$update=Form_Updatation($type,$id,$seo_table);
+	echo $update;*/
+header('location:index.php?option=component&kind=tour&method=add_tour&process=select_category&type=tour&id='.$_GET['id']);
+}
+
+if($type == 'tour_category' && isset($_GET['process']) == 'add')
+{
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=select_destination&type=tour&t_id='.$t_id);
+}
+
+if($type == 'tour_category' && isset($_GET['process']) == 'add' && isset($_GET['id']) != null)
+{
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=select_destination&type=tour&id='.$_GET['id']);
+}
+
+if($type == 'tour_destination' && isset($_GET['process']) == 'add')
+{
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=schedule_type&type=tour&t_id='.$t_id);
+}
+
+
+
+if($type == 'tour_destination' && isset($_GET['process']) == 'add' && isset($_GET['id']) != null)
+{
+	header('location:index.php?option=component&kind=tour&method=add_tour&process=schedule_type&type=tour&id='.$_GET['id']);
+}
+
+}
+
+if(isset($_POST['schedule_skip']))
+{
+	header('location:index.php?option=component&kind=tour&method=tour&process=view&type=tour');
+}
+
+/*if(isset($_POST['update_tour_countrty']))
+{
+	
+	$type = $_POST['table'];
+	$seo_table = $_POST['seo_table'];
+	$id = $_POST['id'];
+		$update=Form_Updatation($type,$id,$seo_table);
+	echo $update;
+	//header('location:index.php?option=component&kind=tour&method=tour&process=view&type=tour');
+}*/
+
+if(isset($_POST['submit_batchfee']))
+{
+$b_id= $_POST['b_id'];
+//print_r($_POST);
+foreach($_POST as $key=>$value)
+{
+//echo 'key '.$key.'<br />';
+$currency= $db->get_results("SELECT * FROM currency");
+foreach($currency as $cu)
+{
+$batch_charges= $db->get_results("SELECT * FROM batch_charges_type");
+foreach($batch_charges as $fee)
+{
+//print_r($value[2]);
+echo'bc_id'.$fee->bc_id.'cr_id'.$cu->cr_id. 'value '.$value[$cu->cr_id][$fee->bc_id].'<br />';
+$values=$value[$cu->cr_id][$fee->bc_id];
+if($values!='')
+{
+$batch_fee= $db->query("INSERT INTO batch_fee VALUES('','$fee->bc_id','$values','$cu->cr_id','$b_id')");
+}
+//header('location:add.php?type=discount_value&tmpl=default&b_id='.$b_id);
+header('location:index.php?option=component&kind=batch&method=add_batch&process=discount_value&type=batch_table&tmpl=default&b_id='.$b_id);
+
+//foreach($value[$cu->cr_id] as $val)
+//{
+
+//echo 'value '.$val.'<br />';
+
+//print_r($key);
+
+//echo 'key '.$key.' Value'.$value.'<br />';
+//}
+}
+}
+break 1;
+}
+}
+if(isset($_POST['submit_batchfee_skip']))
+{
+$b_id= $_POST['b_id'];
+//header('location:add.php?type=discount_value&tmpl=default&b_id='.$b_id);
+header('location:index.php?option=component&kind=batch&method=add_batch&process=discount_value&type=batch_table&tmpl=default&b_id='.$b_id);
+}
+if(isset($_POST['submit_discount_skip']))
+{
+$b_id= $_POST['b_id'];
+//header('location:add.php?type=schedule_type&tmpl=default&b_id='.$b_id);
+header('location:index.php?option=component&kind=batch&method=add_batch&process=select_instructer&type=batch_table&tmpl=default&b_id='.$b_id);
+}
+if(isset($_POST['next_precamp_value']))
+{
+//header('location:view.php?type=batch_table&tmpl=default');
+header('location:index.php?option=component&kind=batch&method=batch&process=view&type=batch_table');
+}
+if(isset($_POST['submit_discount']))
+{
+$b_id= $_POST['b_id'];
+//print_r($_POST);
+foreach($_POST as $key=>$value)
+{
+//echo 'key '.$key.'<br />';
+$discount_type= $db->get_results("SELECT * FROM discount_type");
+foreach($discount_type as $offer)
+{
+//print_r($value[2]);
+echo'dt_id'.$offer->dt_id. 'value '.$value[$offer->dt_id].'<br />';
+$values=$value[$offer->dt_id];
+if($values!='')
+{
+$batch_fee= $db->query("INSERT INTO discount_value VALUES('','$offer->dt_id','$values','$b_id')");
+}
+//header('location:add.php?type=schedule_type&tmpl=default&b_id='.$b_id);
+header('location:index.php?option=component&kind=batch&method=add_batch&process=schedule_type&type=batch_table&tmpl=default&b_id='.$b_id);
+//foreach($value[$cu->cr_id] as $val)
+//{
+//echo 'value '.$val.'<br />';
+//print_r($key);
+//echo 'key '.$key.' Value'.$value.'<br />';
+//}
+}
+break 1;
+}
+}
+if(isset($_POST['next']))
+{
+$b_id=$_POST['b_id'];
+//header('location:add.php?type=select_instructer&tmpl=default&b_id='.$b_id);
+header('location:index.php?option=component&kind=batch&method=add_batch&process=select_instructer&type=batch_table&tmpl=default&b_id='.$b_id);
+}
+if(isset($_POST['back']))
+{
+$b_id=$_POST['b_id'];
+header('location:details.php?type=batch_table&tmpl=edit&id='.$b_id);
+}
+if(isset($_POST['next_precamp']))
+{
+$b_id=$_POST['b_id'];
+header('location:index.php?option=component&kind=batch&method=add_batch&process=pre_camp_value&type=batch_table&b_id='.$b_id);
+//header('location:add.php?type=pre_camp_value&tmpl=default&b_id='.$b_id);
+}
+?>
+<?php
+if(isset($_POST['submit_schedule']))
+{
+//print_r($_POST);
+$schedule= $db->get_results("SELECT * FROM schedule_type");
+$b_id= $_POST['t_id'];
+$bath_schedule= $db->get_row("SELECT * FROM tour_schedule_value WHERE t_id='$b_id' ORDER BY group_id DESC LIMIT 1");
+if($bath_schedule)
+{
+$group_id= $bath_schedule->group_id + 1;
+}
+else
+{
+//echo 'group id'.$bath_schedule->group_id.'<br />';
+$group_id='1';
+}
+foreach($schedule as $schedules)
+{
+foreach($_POST as $key=>$value)
+{
+//echo 'key'. $key.'<br />';
+//print_r($value);
+//echo 'value'.$value[2];
+if(!empty($value[$schedules->st_id]))
+{
+$values=$value[$schedules->st_id];
+//echo $value[$schedules->st_id].'<br >';
+if($values!='' && $values!='b' && $values!='u')
+{
+echo 'scid :'.$schedules->st_id.'<br />';
+//echo 'values'.$values.'<br />';
+echo $schedules->st_ty. $value[$schedules->st_id];
+//echo $key[$schedules->st_id].'<br />';
+//echo 'type'.$schedules->st_ty.'value'.$value[$schedules->st_id];
+//echo'title'. $value['Title'][1];
+
+$insert= $db->query("INSERT INTO tour_schedule_value VALUES('','$schedules->st_id','$group_id','$b_id','$values')");
+}
+}
+//break ;
+}
+//break 1;
+}
+}
+?>
+<?php
+if(isset($_POST['upload_zip']))
+{
+include_once('class.upload.php');
+include_once(config.'photogallary/config/config.php');
+ini_set ( "memory_limit", "128M");
+//if(isset($_POST['Submit']))
+//{
+//print_r($_FILES['zip_upload']);
+//$zipObj = new ZipArchive;
+$g_id= $_POST['g_id'];
+$type= $_POST['type'];
+$type_id= $_POST['type_id'];
+$image_link= $db->query("INSERT INTO image_gallery_link VALUES('','$g_id','$type','$type_id')");
+$gallery= $db->get_row("SELECT * FROM gallery WHERE g_id='$g_id'");
+$zip = new ZipArchive;
+$res = $zip->open($_FILES['zip_upload']['tmp_name']);
+if ($res === TRUE) {
+   // echo 'ok';
+    $zip->extractTo(gallery.'photogallary/'.$gallery->g_folder);
+	$files = glob(gallery."photogallary/".$gallery->g_folder."/*.*");
+	//print_r($files);
+		for ($i=0; $i<count($files); $i++) 
+{
+//print_r($files[$i]);
+$num = $files[$i];
+$image_name=explode('/home/thoughtf/public_html/demo/gowild/admin/component/photogallary/'.$gallery->g_folder.'/',$num);
+
+$folder='old';
+ $foo = new Upload($num); 
+ if ($foo->uploaded) {   
+ 
+ 
+ $insert= $db->query("INSERT INTO images VALUES('','$g_id','$image_name[1]','')");
+$insert_id= $db->insert_id;
+ // save uploaded image with no changes
+ // save uploaded image with a new name 
+ //$foo->file_new_name_body = 'foo';   
+ //$foo->Process('./image/thumbnail');   
+ // save uploaded image with a new name,  
+ // resized to 100px wide 
+ //$foo->file_new_name_body = 'image_full'; 
+  //$a = mkdir(mainsite."/image/full/$section->seo_title/$seo_title", 0755);
+  $foo->image_convert = 'jpg';   
+$foo->image_resize          = true;
+$foo->image_ratio_crop      = true;
+$foo->image_y               = $full_height; //hieght
+$foo->image_x               = $full_width;	//widthphoto
+ $foo->file_new_name_body   = $insert_id;
+ if($logo_upload == 'yes'){
+$foo->image_watermark =logo_path.$logo_path;
+$foo->image_watermark_no_zoom_out = true;
+$foo->image_watermark_position = $watermark_position;
+}
+ $foo->Process(gallery.'photogallary/'.$gallery->g_folder.'/full');  
+ if ($foo->processed) {   
+// echo 'image renamed, resized x=600      
+ //and converted to GIF<br />';    
+ }
+ //$foo->file_new_name_body = $insert_id; 
+ //$a = mkdir(mainsite."/image/thumbnail/".$section->seo_title."/".$seo_title, 0755);
+$foo->image_convert = 'jpg';   
+$foo->image_resize          = true;
+$foo->image_ratio_crop      = true;
+$foo->image_y               = $thumb_height; //hieght
+$foo->image_x               = $thumb_width;	//width
+ $foo->file_new_name_body   = $insert_id;
+  if($logo_upload == 'yes'){
+$foo->image_watermark =logo_path.$logo_path;
+$foo->image_watermark_no_zoom_out = true;
+$foo->image_watermark_position = $watermark_position;
+}
+ $foo->Process(gallery.'photogallary/'.$gallery->g_folder.'/thumbnail');  
+ if ($foo->processed) {   
+ //echo 'image renamed, resized x=200      
+ //and converted to GIF';   
+ $foo->Clean(); 
+ } else 
+ {   //  echo 'error : ' . $foo->error; 
+ } 
+ }
+}
+$zip->close();
+}
+$pageURL =$_SERVER["REQUEST_URI"];
+$page=explode('step=2',$pageURL);
+header('location:'.$page[0].'step=3&g_id='.$g_id);
+}
+?>
+<?php
+if(isset($_POST['exit_gallary']))
+{
+$type= $_POST['type'];
+$type_id= $_POST['type_id'];
+header('location:./details.php?type='.$type.'&tmpl=default&id='.$type_id);
+}
+?>
+<?php
+if(isset($_POST['update_image']))
+{
+
+foreach($_POST as $key=>$value)
+{
+//print_r($key);
+//print_r($value);
+$ig_id= $_POST['ig_id'];
+$type= $_POST['type'];
+$type_id= $_POST['type_id'];
+if(is_array($value))
+{
+foreach($value as $id=>$title)
+{
+//echo'id :'.$id.'title :'.$title;
+if($title=='show' || $title=='hide')
+{
+$update= $db->query("UPDATE images SET im_status='$title' WHERE im_id='$id'");
+if($title=='hide')
+{
+$hide_image= $db->get_row("SELECT * FROM hide_image WHERE im_id='$id' AND ig_id='$ig_id'");
+if($hide_image==FALSE)
+{
+$insert= $db->query("INSERT INTO hide_image VALUES('','$id','$ig_id','$title')");
+}
+}
+}
+else
+{
+$update= $db->query("UPDATE images SET im_title='$title' WHERE im_id='$id'");
+}
+}
+}
+}
+//header('location:./details.php?type='.$type.'&tmpl=default&id='.$type_id);
+header('location:./index.php?option=component&kind=batch&method=batch&process=details&type=batch_table&tmpl=custom&id='.$type_id);
+//print_r($_SESSION);
+}
+?>
+<?php
+if(isset($_GET['img_id']) && isset($_GET['folder']))
+{
+$folder= $_GET['folder'];
+$file=gallery.'photogallary/'.$folder.'/full/'.$_GET['img_id'].'.jpg';
+$file_thumb=gallery.'photogallary/'.$folder.'/thumbnail/'.$_GET['img_id'].'.jpg';
+//$file1=$_SERVER['DOCUMENT_ROOT'].'/gowild/admin/component/photogallary/'.$folder.'/thumbnail/'.$_GET['img_id'].'jpg';
+$fh=fopen($file,'r');
+$fh_thumb=fopen($file_thumb,'r');
+if(@$fh && @$fh_thumb)
+{
+//$fh1=fopen($file1,'a');
+$delete_image=(unlink($file));
+$delete_image_thumb=(unlink($file_thumb));
+if($delete_image && $delete_image_thumb)
+{
+$delete= $db->query("DELETE FROM images WHERE im_id='$_GET[img_id]'");
+header('location:'.$_SERVER['HTTP_REFERER']);
+}
+}
+}
+?>
+<?php
+//this use only set image delete
+if(isset($_GET['si_id']) && isset($_GET['imagefolder']))
+{
+$folder= $_GET['imagefolder'];
+$file=set_image.'slideshow/'.$folder.'/'.$_GET['si_id'].'.jpg';
+//$file1=$_SERVER['DOCUMENT_ROOT'].'/gowild/admin/component/photogallary/'.$folder.'/thumbnail/'.$_GET['img_id'].'jpg';
+$fh=fopen($file,'r');
+if(@$fh)
+{
+//$fh1=fopen($file1,'a');
+$delete_image=(unlink($file));
+if($delete_image)
+{
+$delete= $db->query("DELETE FROM set_image WHERE si_id='$_GET[si_id]'");
+header('location:'.$_SERVER['HTTP_REFERER']);
+}
+}
+else
+{
+$delete= $db->query("DELETE FROM set_image WHERE si_id='$_GET[si_id]'");
+header('location:'.$_SERVER['HTTP_REFERER']);
+}
+}
+?>
+<?php
+if(isset($_POST['submit_gallery_link']))
+{
+//print_r($_POST);
+$select_gallery= $_POST['select_gallery'];
+$type= $_POST['type'];
+$type_id= $_POST['type_id'];
+foreach($select_gallery as $gallery)
+{
+$insert= $db->query("INSERT INTO image_gallery_link VALUES('','$gallery','$type','$type_id')");
+}
+header('location:./details.php?type='.$type.'&tmpl=default&id='.$type_id);
+//echo $_SESSION['header_location'];
+//print_r($_SESSION);
+}
+?>
+<?php
+if(isset($_POST['upload_image']))
+{ 
+
+include_once('class.upload.php');
+include_once(config.'photogallary/config/config.php');
+ini_set ( "memory_limit", "128M");
+//if(isset($_POST['Submit']))
+//{
+//print_r($_FILES['zip_upload']);
+//$zipObj = new ZipArchive;
+$type= $_POST['type'];
+$type_id= $_POST['type_id'];
+
+
+$img_name=$_FILES['image_upload']['name'];
+ $foo = new Upload($_FILES['image_upload']['tmp_name']); 
+ if ($foo->uploaded) {   
+ //$songs_vote= $db->get_results("SELECT song_table .*, song_vote.* FROM song_table LEFT JOIN song_vote ON song_table.st_id = song_vote.st_id WHERE song_table.sc_id LIKE '%$ucat->sc_id%' ORDER BY song_vote.type DESC");
+ $image_link= $db->get_row("SELECT image_gallery_link .*, gallery.* FROM image_gallery_link LEFT JOIN gallery ON image_gallery_link.g_id = gallery.g_id WHERE image_gallery_link.type='$type' AND image_gallery_link.type_id='$type_id'");
+ //print_r($image_link);
+ 
+ $insert= $db->query("INSERT INTO images VALUES('','$image_link->g_id','$img_name','')");
+$insert_id= $db->insert_id;
+ // save uploaded image with no changes
+ // save uploaded image with a new name 
+ //$foo->file_new_name_body = 'foo';   
+ //$foo->Process('./image/thumbnail');   
+ // save uploaded image with a new name,  
+ // resized to 100px wide 
+ //$foo->file_new_name_body = 'image_full'; 
+  //$a = mkdir(mainsite."/image/full/$section->seo_title/$seo_title", 0755);
+  $foo->image_convert = 'jpg';   
+$foo->image_resize          = true;
+$foo->image_ratio_crop      = true;
+$foo->image_y               = $full_height; //hieght
+$foo->image_x               = $full_width;	//width
+ $foo->file_new_name_body   = $insert_id;
+ if($logo_upload == 'yes'){
+$foo->image_watermark =logo_path.$logo_path;
+$foo->image_watermark_no_zoom_out = true;
+$foo->image_watermark_position = $watermark_position;
+}
+ $foo->Process(gallery.'photogallary/'.$image_link->g_folder.'/full');  
+ if ($foo->processed) {   
+// echo 'image renamed, resized x=600      
+ //and converted to GIF<br />';    
+ }
+ //$foo->file_new_name_body = $insert_id; 
+ //$a = mkdir(mainsite."/image/thumbnail/".$section->seo_title."/".$seo_title, 0755);
+$foo->image_convert = 'jpg';   
+$foo->image_resize          = true;
+$foo->image_ratio_crop      = true;
+$foo->image_y               = $thumb_height; //hieght
+$foo->image_x               = $thumb_width;	//width
+ $foo->file_new_name_body   = $insert_id;
+  if($logo_upload == 'yes'){
+$foo->image_watermark =logo_path.$logo_path;
+$foo->image_watermark_no_zoom_out = true;
+$foo->image_watermark_position = $watermark_position;
+}
+ $foo->Process(gallery.'photogallary/'.$image_link->g_folder.'/thumbnail');  
+ if ($foo->processed) {   
+ //echo 'image renamed, resized x=200      
+ //and converted to GIF';   
+ $foo->Clean(); 
+ } else 
+ {   //  echo 'error : ' . $foo->error; 
+ } 
+ }
+}
+?>
+<?php
+
+if(isset($_POST['sets']))
+{
+$title= $_POST['title'];
+$status= $_POST['status'];
+$height = $_POST['height'];
+$width = $_POST['width'];
+$copyright = $_POST['copyright'];
+
+$insert= $db->query("INSERT INTO sets VALUES('','$title','$status','$height','$width','$copyright')");
+if($insert)
+{
+header('location:index.php?option=component&kind=slideshow');
+}
+}
+
+if(isset($_POST['update_sets']))
+{
+$title= $_POST['title'];
+$status= $_POST['status'];
+$height = $_POST['height'];
+$width = $_POST['width'];
+$copyright = $_POST['copyright'];
+$id = $_GET['id'];
+
+$update= $db->query("UPDATE sets SET set_title = '$title', set_status = '$status', set_height = '$height', set_width = '$width', set_copyright = '$copyright' WHERE set_id = '$id' ");
+if($update)
+{
+header('location:index.php?option=component&kind=slideshow');
+}
+}
+
+
+if(isset($_POST['add_set_image']))
+{
+
+$set_id= $_POST['set_id'];
+$image_title= $_POST['image_title'];
+$desc= $_POST['desc'];
+$linkto= $_POST['linkto'];
+$status= $_POST['status'];
+$copyright_name = $_POST['copyright_name'];
+
+include_once('class.upload.php');
+
+//echo gallery;
+
+$image_name= $_FILES['image_upload']['name'];
+$insert= $db->query("INSERT INTO set_image VALUES('','$image_title','$desc','$linkto','$status','$image_name','$set_id','$copyright_name')");
+$insert_id=$db->insert_id;
+ini_set ( "memory_limit", "128M");
+
+
+	//echo'md5 '.$userfolder;
+
+ $foo = new Upload($_FILES['image_upload']['tmp_name']); 
+ if ($foo->uploaded) {   
+ // save uploaded image with no changes
+ 
+   
+ // save uploaded image with a new name 
+ //$foo->file_new_name_body = 'foo';   
+ //$foo->Process('./image/thumbnail');   
+   
+ // save uploaded image with a new name,  
+ // resized to 100px wide 
+ $foo->file_new_name_body = $insert_id; 
+  //$a = mkdir(mainsite."/image/full/$section->seo_title/$seo_title", 0755);
+ $foo->image_resize = true;   /*$foo->image_convert = 'jpg'; */  $foo->image_x = 1027;  $foo->image_y = 470; //$foo->image_ratio_y = true;  
+//$foo->image_background_color = '#FF00FF';
+//$foo->image_watermark       = $_SERVER['DOCUMENT_ROOT'].'/gowild/images/1banner_frame.jpg';
+ $foo->Process(set_image.'/slideshow/images');  
+ if ($foo->processed) {   
+ echo 'image renamed, resized x=600      
+ and converted to GIF<br />';    
+ 
+ }
+
+ 
+
+ 
+ 
+}
+}
+?>
+
+<?php
+if(isset($_POST['update_set']))
+{
+$set_id= $_POST['set_id'];
+foreach($_POST as $key=>$value)
+{
+print_r($key);
+print_r($value);
+if(is_array($value))
+{
+foreach($value as $id=>$title)
+{
+//echo 'id :'.$id.'title :'.$title.'key :'.$key.'<br />';
+$update= $db->query("UPDATE set_image SET $key='$title' WHERE si_id='$id' AND set_id='$set_id'");
+}
+header('location:./index.php?option=component&kind=slideshow');
+}
+}
+}
+if(isset($_POST['set_exit']))
+{
+header('location:./index.php?option=component&kind=slideshow');
+}
+?>
+<?php
+if(isset($_GET['set_idUn']))
+{
+$update= $db->query("UPDATE sets SET set_status='unpublish' WHERE set_id='$_GET[set_idUn]'");
+header('location:'.$_SERVER['HTTP_REFERER']);
+}
+?>
+<?php
+if(isset($_GET['set_idPub']))
+{
+$update= $db->query("UPDATE sets SET set_status='Publish' WHERE set_id='$_GET[set_idPub]'");
+header('location:'.$_SERVER['HTTP_REFERER']);
+}
+?>
+<?php
+include_once('tinymce.php');
+?>
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap Admin</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Thoughtfulviewfinder Services" >
+
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+
+    
+
+			<script src="lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <!-- Demo page code -->
+
+    <style type="text/css">
+        #line-chart {
+            height:300px;
+            width:800px;
+            margin: 0px auto;
+            margin-top: 1em;
+        }
+        .brand { font-family: georgia, serif; }
+        .brand .first {
+            color: #ccc;
+            font-style: italic;
+        }
+        .brand .second {
+            color: #fff;
+            font-weight: bold;
+        }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> 
+  <body class=""> 
+  <!--<![endif]-->
+    
+    <div class="navbar">
+        <div class="navbar-inner">
+                <ul class="nav pull-right">
+                    
+                    <li><a href="#" class="hidden-phone visible-tablet visible-desktop" role="button">Settings</a></li>
+                    <li id="fat-menu" class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-user"></i> 
+							<?php
+							
+							if(isset($_SESSION['ad_id']))
+							{
+							$userinfo= User_info($_SESSION['ad_id']);
+							
+							//print_r()
+						 //echo $userinfo->ad_name;
+							}
+							?>
+                            <i class="icon-caret-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" href="#">My Account</a></li>
+                            <li class="divider"></li>
+                            <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
+                            <li class="divider visible-phone"></li>
+                            <li><a tabindex="-1" href="logout.php">Logout</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+                <a class="brand" href="index.html"><span class="first">Your</span> <span class="second">Company</span></a>
+        </div>
+    </div>
+    
+
+
+    
+    <div class="sidebar-nav">
+        <form class="search form-inline">
+            <input type="text" placeholder="Search...">
+        </form>
+<?php 
+function getoptions()
+{
+	global $db;
+	$tablenames = array("batch_fee", "discount_value", "pre_camp_value","moduledata","menu_table","menu_links","moduleparams","moduletype","hide_video","hide_image","photo_gallery","video_gallery","video_gallery_items_table","video_gallery_type","image_gallery_link","images","other_video_items","seo_detail","component","batch_table","downloads","downloads_type","gallery","answer_table","article_table","article_category","users_table","user_types","sets","set_image","ranking_table","photo_table","video_table","friendlist","field_data","field_reference","menuparams","photo_album","user_destinations","downloads_category","disscussion_table","currency","discount_type","instructor","instructor_type","pre_camp_venue","pre_camp_value","schedule_type","schedule_value","batch_instructer","batch_table","batch_fee","batch_charges_type","tour","country","destination","category","admin_change","tour_country","tour_category","tour_destination","tour_schedule_value");
+
+foreach ( $db->get_col("SHOW TABLES",0) as $tablename )
+{
+if (in_array($tablename, $tablenames))
+{
+	}else{
+
+	?>
+ <a href="#<?php echo $tablename; ?>-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i><?php echo $tablename; ?></a>
+<ul id="<?php echo $tablename; ?>-menu" class="nav nav-list collapse">
+            <li ><a href="add.php?type=<?php echo $tablename; ?>&tmpl=default"><?php echo 'Add '.$tablename; ?></a></li>
+            <li ><a href="view.php?type=<?php echo $tablename; ?>&tmpl=default"><?php echo 'View all '.$tablename; ?></a></li>
+           
+            
+        </ul>
+
+<?php 
+}//else close
+}//foreach
+	}//function
+	
+	$a = getoptions();
+	echo $a;
+?>
+
+        <a href="#accounts-menu" class="nav-header" data-toggle="collapse"><i class="icon-briefcase"></i>Component<span class="label label-info">+3</span></a>
+        <ul id="accounts-menu" class="nav nav-list collapse">
+            <li ><a href="index.php?option=component&kind=videogallery">Video Gallery</a></li>
+            <li ><a href="index.php?option=component&kind=photogallary">Photo Gallery</a></li>
+            <li ><a href="index.php?option=component&kind=downloads">Downloads</a></li>
+            <li ><a href="index.php?option=component&kind=slideshow">Slideshow</a></li>
+            <li ><a href="index.php?option=component&kind=batch">Batch</a></li>
+            <li ><a href="index.php?option=component&kind=article_manager">Article Manager</a></li>
+            <!-- <li ><a href="index.php?option=component&kind=videogallery&method=gallery&process=add&type=batch_table&id=2&step=1">Reset Password</a></li> -->
+        </ul>
+
+
+        <a href="#legal-menu" class="nav-header" data-toggle="collapse"><i class="icon-legal"></i>Configure</a>
+        <ul id="legal-menu" class="nav nav-list collapse">
+            <li ><a href="configure.php">Configure View Page</a></li>
+            
+        </ul>
+
+				    <a href="menumanager.php" class="nav-header" ><i class="icon-question-sign"></i>Menu Manager</a>
+        <a href="addmodule.php" class="nav-header" ><i class="icon-question-sign"></i>Add Module</a>
+      <!--   <a href="index.php?option=component&kind=videogallery&method=config" class="nav-header" ><i class="icon-comment"></i>Add Video config</a>
+        <a href="index.php?option=component&kind=photogallary&method=config" class="nav-header" ><i class="icon-comment"></i>Add image config</a>
+        <a href="index.php?option=component&kind=videogallery&method=gallery&process=view&id=all" class="nav-header" ><i class="icon-comment"></i>View all Video Gallries</a>
+                <a href="index.php?option=component&kind=videogallery&method=items&process=view&id=all" class="nav-header" ><i class="icon-comment"></i>View all Video Items</a>
+		<a href="index.php?option=component&kind=photogallary" class="nav-header" ><i class="icon-comment"></i>View all photo galleries</a> -->
+    </div>

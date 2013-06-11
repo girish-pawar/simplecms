@@ -1,0 +1,27 @@
+    
+<div id="top">
+		<div id="leftmenu">
+			<ul>
+		    	<li><a href="#">Home</a></li>
+		</ul>    	
+		</div>    <!--end leftmenu-->  
+		
+		<div id="logo">
+		<a href="www.gowild.in"><img src="images/logo.png" align="middle" alt="GoWildLogo" border="0" /></a>
+		</div>
+		
+		
+		<div id="rightmenu">
+				<ul>
+			 	<?php// include_once('right.php'); ?>
+			 </ul>
+		</div>   <!--end rightmenu-->
+ 
+ 
+ 		<div id="slideshow">			
+ 
+			<?php		 //echo Front_loadComponent('slideshow');
+			echo Front_loadModules('top','no');
+			 ?>     				
+   </div> 
+</div>  	   <!--end top-->

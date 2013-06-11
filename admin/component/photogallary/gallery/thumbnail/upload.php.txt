@@ -1,0 +1,7 @@
+<form method='POST' action='' enctype='multipart/form-data'>
+
+Zip Upload :<input type='file' name='zip_upload'><br />
+
+<input type='submit' name='upload_zip' value='Upload Zip'>
+
+</form>

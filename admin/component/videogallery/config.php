@@ -1,0 +1,1 @@
+<?php  $servicetype = 'youtube';   $size = '320 x 240'; ?>
